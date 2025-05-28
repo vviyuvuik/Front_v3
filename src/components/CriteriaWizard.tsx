@@ -237,26 +237,93 @@ const CriteriaWizard: React.FC<CriteriaWizardProps> = ({
             <div className="grid gap-4">
               <div className="grid gap-2">
                 <Label htmlFor="contractType">Type de contrat</Label>
-                <Select
-                  value={criteria.contractType}
-                  onValueChange={(value) =>
-                    updateCriteria("contractType", value)
-                  }
-                >
-                  <SelectTrigger id="contractType">
-                    <SelectValue placeholder="Sélectionnez un type de contrat" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="cdi">CDI</SelectItem>
-                    <SelectItem value="cdd">CDD</SelectItem>
-                    <SelectItem value="interim">Intérim</SelectItem>
-                    <SelectItem value="freelance">Freelance</SelectItem>
-                    <SelectItem value="apprentissage">
-                      Apprentissage / Alternance
-                    </SelectItem>
-                    <SelectItem value="stage">Stage</SelectItem>
-                  </SelectContent>
-                </Select>
+                <div className="grid grid-cols-2 gap-3 mt-2">
+                  <button
+                    type="button"
+                    onClick={() => updateCriteria("contractType", "cdi")}
+                    className={`flex flex-col items-center justify-center p-4 rounded-xl border-2 transition-all ${criteria.contractType === "cdi" ? "border-primary bg-primary/10" : "border-border hover:border-primary/50 bg-background"}`}
+                  >
+                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-3">
+                      <Briefcase className="h-6 w-6 text-primary" />
+                    </div>
+                    <span className="font-medium">CDI</span>
+                    <span className="text-xs text-muted-foreground mt-1">
+                      Contrat à durée indéterminée
+                    </span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => updateCriteria("contractType", "cdd")}
+                    className={`flex flex-col items-center justify-center p-4 rounded-xl border-2 transition-all ${criteria.contractType === "cdd" ? "border-primary bg-primary/10" : "border-border hover:border-primary/50 bg-background"}`}
+                  >
+                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-3">
+                      <Calendar className="h-6 w-6 text-primary" />
+                    </div>
+                    <span className="font-medium">CDD</span>
+                    <span className="text-xs text-muted-foreground mt-1">
+                      Contrat à durée déterminée
+                    </span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => updateCriteria("contractType", "interim")}
+                    className={`flex flex-col items-center justify-center p-4 rounded-xl border-2 transition-all ${criteria.contractType === "interim" ? "border-primary bg-primary/10" : "border-border hover:border-primary/50 bg-background"}`}
+                  >
+                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-3">
+                      <Clock className="h-6 w-6 text-primary" />
+                    </div>
+                    <span className="font-medium">Intérim</span>
+                    <span className="text-xs text-muted-foreground mt-1">
+                      Mission temporaire
+                    </span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => updateCriteria("contractType", "freelance")}
+                    className={`flex flex-col items-center justify-center p-4 rounded-xl border-2 transition-all ${criteria.contractType === "freelance" ? "border-primary bg-primary/10" : "border-border hover:border-primary/50 bg-background"}`}
+                  >
+                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-3">
+                      <ArrowRight className="h-6 w-6 text-primary" />
+                    </div>
+                    <span className="font-medium">Freelance</span>
+                    <span className="text-xs text-muted-foreground mt-1">
+                      Travailleur indépendant
+                    </span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() =>
+                      updateCriteria("contractType", "apprentissage")
+                    }
+                    className={`flex flex-col items-center justify-center p-4 rounded-xl border-2 transition-all ${criteria.contractType === "apprentissage" ? "border-primary bg-primary/10" : "border-border hover:border-primary/50 bg-background"}`}
+                  >
+                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-3">
+                      <ArrowLeft className="h-6 w-6 text-primary" />
+                    </div>
+                    <span className="font-medium">Apprentissage</span>
+                    <span className="text-xs text-muted-foreground mt-1">
+                      Alternance
+                    </span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => updateCriteria("contractType", "stage")}
+                    className={`flex flex-col items-center justify-center p-4 rounded-xl border-2 transition-all ${criteria.contractType === "stage" ? "border-primary bg-primary/10" : "border-border hover:border-primary/50 bg-background"}`}
+                  >
+                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-3">
+                      <Check className="h-6 w-6 text-primary" />
+                    </div>
+                    <span className="font-medium">Stage</span>
+                    <span className="text-xs text-muted-foreground mt-1">
+                      Période d'apprentissage
+                    </span>
+                  </button>
+                </div>
               </div>
 
               <div className="grid gap-2">

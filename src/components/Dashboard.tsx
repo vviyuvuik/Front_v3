@@ -22,6 +22,10 @@ import {
   Target,
   XCircle,
   ChevronRight,
+  Send,
+  Briefcase,
+  MapPin,
+  FileText,
 } from "lucide-react";
 import ApplicationsList from "./ApplicationsList";
 
@@ -75,130 +79,141 @@ const Dashboard = ({
 
   return (
     <div className="bg-[#F5F5F7] min-h-screen p-6">
-      <div className="max-w-7xl mx-auto space-y-8">
-        <div className="flex items-center justify-between bg-white rounded-2xl p-6 shadow-sm">
-          <div>
-            <h1 className="text-3xl font-semibold text-[#1D1D1F]">Dashboard</h1>
-            <p className="text-[#86868B]">Welcome back, {userName}</p>
-          </div>
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2">
-              <span className="text-sm font-medium text-[#1D1D1F]">
-                Automation
-              </span>
-              <Switch
-                checked={isAutomationEnabled}
-                onCheckedChange={setIsAutomationEnabled}
-                className="data-[state=checked]:bg-[#0071E3]"
-              />
+      <div className="max-w-7xl mx-auto space-y-6">
+        <div className="flex flex-col bg-white rounded-2xl shadow-sm overflow-hidden">
+          <div className="w-full bg-gradient-to-r from-[#0A1F38] to-[#1A3A5F] text-white p-6 rounded-t-2xl">
+            <div className="flex justify-between items-center">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-lg bg-white/10 flex items-center justify-center">
+                  <Briefcase className="h-6 w-6 text-white" />
+                </div>
+                <div>
+                  <h1 className="text-3xl font-semibold">Dashboard</h1>
+                  <p className="text-white/80">Bienvenue, {userName}</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-medium text-white">
+                    Automatisation
+                  </span>
+                  <Switch
+                    checked={isAutomationEnabled}
+                    onCheckedChange={setIsAutomationEnabled}
+                    className="data-[state=checked]:bg-[#0071E3]"
+                  />
+                </div>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="rounded-full border-white/20 hover:bg-white/10 text-white"
+                >
+                  <Settings className="h-4 w-4" />
+                </Button>
+              </div>
             </div>
-            <Button
-              variant="outline"
-              size="icon"
-              className="rounded-full border-[#E5E5E5] hover:bg-[#F5F5F7]"
-            >
-              <Settings className="h-4 w-4 text-[#1D1D1F]" />
-            </Button>
+            <div className="mt-6">
+              <p className="text-xl">Trouvez l'emploi qui vous correspond</p>
+              <p className="text-white/80 text-sm mt-1">
+                Des milliers d'offres d'emploi dans tous les secteurs, partout
+                en France.
+              </p>
+            </div>
+          </div>
+          <div className="p-4 border-b border-[#E5E5E5] bg-white">
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 text-[#1D1D1F]">
+                <span className="font-medium">Suivi des Candidatures</span>
+                <Badge className="bg-[#0071E3] text-white">
+                  {statistics.totalApplications}
+                </Badge>
+              </div>
+            </div>
           </div>
         </div>
 
         <Tabs defaultValue="overview" className="w-full">
-          <TabsList className="mb-6 bg-white p-1 rounded-xl shadow-sm border border-[#F5F5F7]">
+          <TabsList className="mb-6 bg-white p-1 rounded-xl shadow-sm border border-[#E5E5E5]">
             <TabsTrigger
               value="overview"
               className="rounded-lg data-[state=active]:bg-[#F5F5F7] data-[state=active]:shadow-sm data-[state=active]:text-[#0071E3]"
             >
-              Overview
+              Aperçu
             </TabsTrigger>
             <TabsTrigger
               value="statistics"
               className="rounded-lg data-[state=active]:bg-[#F5F5F7] data-[state=active]:shadow-sm data-[state=active]:text-[#0071E3]"
             >
-              Statistics
+              Statistiques
             </TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview" className="mt-0">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
               <Card className="border-none rounded-2xl shadow-sm overflow-hidden bg-white">
-                <CardHeader className="pb-2 bg-gradient-to-r from-[#5E5CE6] to-[#9198E5] text-white">
+                <CardHeader className="pb-2 bg-gradient-to-r from-[#0071E3] to-[#40AAFF] text-white rounded-t-xl">
                   <CardTitle className="text-lg font-medium">
-                    Active Criteria
+                    Critères actifs
                   </CardTitle>
-                  <CardDescription className="text-white/80">
-                    Your job search preferences
-                  </CardDescription>
                 </CardHeader>
-                <CardContent className="pt-6">
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between p-3 bg-[#F5F5F7] rounded-xl">
-                      <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full bg-[#E3F2FD] flex items-center justify-center">
-                          <Target className="h-4 w-4 text-[#5E5CE6]" />
-                        </div>
-                        <div>
-                          <span className="text-xs text-[#86868B]">
-                            Job Type
-                          </span>
-                          <p className="text-sm font-medium text-[#1D1D1F]">
-                            {activeCriteria.jobType}
-                          </p>
-                        </div>
+                <CardContent className="pt-4">
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="col-span-2 flex items-center gap-3 p-3 bg-[#F5F5F7] rounded-xl">
+                      <div className="w-10 h-10 rounded-full bg-[#E3F2FD] flex items-center justify-center">
+                        <Briefcase className="h-5 w-5 text-[#0071E3]" />
                       </div>
-                      <ChevronRight className="h-4 w-4 text-[#86868B]" />
+                      <div className="flex-1">
+                        <p className="text-sm font-medium text-[#1D1D1F]">
+                          {activeCriteria.jobType}
+                        </p>
+                        <span className="text-xs text-[#86868B]">
+                          Type de poste
+                        </span>
+                      </div>
                     </div>
 
-                    <div className="flex items-center justify-between p-3 bg-[#F5F5F7] rounded-xl">
-                      <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full bg-[#E3F2FD] flex items-center justify-center">
-                          <Target className="h-4 w-4 text-[#5E5CE6]" />
-                        </div>
-                        <div>
-                          <span className="text-xs text-[#86868B]">
-                            Location
-                          </span>
-                          <p className="text-sm font-medium text-[#1D1D1F]">
-                            {activeCriteria.location}
-                          </p>
-                        </div>
+                    <div className="flex items-center gap-3 p-3 bg-[#F5F5F7] rounded-xl">
+                      <div className="w-10 h-10 rounded-full bg-[#E3F2FD] flex items-center justify-center">
+                        <Target className="h-5 w-5 text-[#5E5CE6]" />
                       </div>
-                      <ChevronRight className="h-4 w-4 text-[#86868B]" />
+                      <div>
+                        <p className="text-sm font-medium text-[#1D1D1F]">
+                          {activeCriteria.location}
+                        </p>
+                        <span className="text-xs text-[#86868B]">
+                          Localisation
+                        </span>
+                      </div>
                     </div>
 
-                    <div className="flex items-center justify-between p-3 bg-[#F5F5F7] rounded-xl">
-                      <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full bg-[#E3F2FD] flex items-center justify-center">
-                          <Target className="h-4 w-4 text-[#5E5CE6]" />
-                        </div>
-                        <div>
-                          <span className="text-xs text-[#86868B]">
-                            Contract Type
-                          </span>
-                          <p className="text-sm font-medium text-[#1D1D1F]">
-                            {activeCriteria.contractType}
-                          </p>
-                        </div>
+                    <div className="flex items-center gap-3 p-3 bg-[#F5F5F7] rounded-xl">
+                      <div className="w-10 h-10 rounded-full bg-[#E3F2FD] flex items-center justify-center">
+                        <Target className="h-5 w-5 text-[#5E5CE6]" />
                       </div>
-                      <ChevronRight className="h-4 w-4 text-[#86868B]" />
+                      <div>
+                        <p className="text-sm font-medium text-[#1D1D1F]">
+                          {activeCriteria.contractType}
+                        </p>
+                        <span className="text-xs text-[#86868B]">
+                          Type de contrat
+                        </span>
+                      </div>
                     </div>
+                  </div>
 
-                    <div>
-                      <span className="text-xs text-[#86868B] mb-2 block">
-                        Other Preferences
-                      </span>
-                      <div className="flex flex-wrap gap-2">
-                        {activeCriteria.otherPreferences.map(
-                          (preference, index) => (
-                            <Badge
-                              key={index}
-                              variant="secondary"
-                              className="bg-[#F5F5F7] text-[#1D1D1F] hover:bg-[#E5E5E5] border-none"
-                            >
-                              {preference}
-                            </Badge>
-                          ),
-                        )}
-                      </div>
+                  <div className="mt-4">
+                    <div className="flex flex-wrap gap-2">
+                      {activeCriteria.otherPreferences.map(
+                        (preference, index) => (
+                          <Badge
+                            key={index}
+                            variant="secondary"
+                            className="bg-[#F5F5F7] text-[#1D1D1F] hover:bg-[#E5E5E5] border-none"
+                          >
+                            {preference}
+                          </Badge>
+                        ),
+                      )}
                     </div>
                   </div>
                 </CardContent>
@@ -208,63 +223,54 @@ const Dashboard = ({
                     size="sm"
                     className="w-full rounded-xl border-[#E5E5E5] hover:bg-[#F5F5F7] text-[#0071E3]"
                   >
-                    Edit Criteria
+                    Modifier les critères
                   </Button>
                 </CardFooter>
               </Card>
 
               <Card className="border-none rounded-2xl shadow-sm overflow-hidden bg-white">
-                <CardHeader className="pb-2 bg-gradient-to-r from-[#30B0C7] to-[#8BD7E5] text-white">
-                  <CardTitle className="text-lg font-medium">
-                    Automation Settings
+                <CardHeader className="pb-2 bg-gradient-to-r from-[#0071E3] to-[#40AAFF] text-white rounded-t-xl">
+                  <CardTitle className="text-lg font-medium flex items-center justify-between">
+                    <span>Automatisation</span>
+                    <Switch
+                      checked={isAutomationEnabled}
+                      onCheckedChange={setIsAutomationEnabled}
+                      className="data-[state=checked]:bg-white"
+                    />
                   </CardTitle>
-                  <CardDescription className="text-white/80">
-                    Configure your job application automation
-                  </CardDescription>
                 </CardHeader>
-                <CardContent className="pt-6">
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between p-3 bg-[#F5F5F7] rounded-xl">
-                      <span className="text-sm font-medium text-[#1D1D1F]">
-                        Status
-                      </span>
-                      <Badge
-                        variant={isAutomationEnabled ? "default" : "outline"}
-                        className={
-                          isAutomationEnabled
-                            ? "bg-[#34C759] hover:bg-[#34C759]/90 text-white"
-                            : "text-[#86868B] border-[#E5E5E5]"
-                        }
-                      >
-                        {isAutomationEnabled ? "Active" : "Inactive"}
-                      </Badge>
-                    </div>
+                <CardContent className="pt-4">
+                  <div className="flex items-center justify-between mb-4">
+                    <Badge
+                      variant={isAutomationEnabled ? "default" : "outline"}
+                      className={
+                        isAutomationEnabled
+                          ? "bg-[#34C759] hover:bg-[#34C759]/90 text-white"
+                          : "text-[#86868B] border-[#E5E5E5]"
+                      }
+                    >
+                      {isAutomationEnabled ? "Actif" : "Inactif"}
+                    </Badge>
+                    <span className="text-sm text-[#86868B]">
+                      Prochaine: Aujourd'hui, 18:00
+                    </span>
+                  </div>
 
-                    <div className="flex items-center justify-between p-3 bg-[#F5F5F7] rounded-xl">
-                      <span className="text-sm font-medium text-[#1D1D1F]">
-                        Check Frequency
-                      </span>
-                      <span className="text-sm text-[#86868B]">
-                        {automationSettings.frequency}
-                      </span>
-                    </div>
-
-                    <div className="flex items-center justify-between p-3 bg-[#F5F5F7] rounded-xl">
-                      <span className="text-sm font-medium text-[#1D1D1F]">
-                        Max Applications/Day
-                      </span>
-                      <span className="text-sm text-[#86868B]">
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="flex flex-col items-center justify-center p-4 bg-[#F5F5F7] rounded-xl">
+                      <span className="text-2xl font-bold text-[#1D1D1F]">
                         {automationSettings.maxApplicationsPerDay}
                       </span>
+                      <span className="text-xs text-[#86868B]">
+                        Max candidatures/jour
+                      </span>
                     </div>
 
-                    <div className="flex items-center justify-between p-3 bg-[#F5F5F7] rounded-xl">
-                      <span className="text-sm font-medium text-[#1D1D1F]">
-                        Next Check
+                    <div className="flex flex-col items-center justify-center p-4 bg-[#F5F5F7] rounded-xl">
+                      <span className="text-2xl font-bold text-[#1D1D1F]">
+                        {automationSettings.frequency}
                       </span>
-                      <span className="text-sm text-[#86868B]">
-                        Today, 18:00
-                      </span>
+                      <span className="text-xs text-[#86868B]">Fréquence</span>
                     </div>
                   </div>
                 </CardContent>
@@ -274,81 +280,148 @@ const Dashboard = ({
                     size="sm"
                     className="w-full rounded-xl border-[#E5E5E5] hover:bg-[#F5F5F7] text-[#0071E3]"
                   >
-                    Configure Settings
+                    Configurer les paramètres
                   </Button>
                 </CardFooter>
               </Card>
             </div>
 
-            <div className="bg-white border-none rounded-2xl p-6 flex items-center justify-between shadow-sm mb-8">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-[#FFF8E1] flex items-center justify-center">
-                  <AlertCircle className="h-5 w-5 text-[#FF9500]" />
+            <div className="bg-white border-none rounded-2xl p-6 shadow-sm mb-8">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-[#E3F2FD] flex items-center justify-center">
+                    <AlertCircle className="h-5 w-5 text-[#0071E3]" />
+                  </div>
+                  <div>
+                    <span className="text-[#1D1D1F] font-medium block">
+                      3 nouveaux matchs d'emploi
+                    </span>
+                    <span className="text-[#86868B] text-sm">
+                      Correspondant à vos critères de recherche
+                    </span>
+                  </div>
                 </div>
-                <span className="text-[#1D1D1F]">
-                  You have 3 new job matches based on your criteria.
-                </span>
+                <Button
+                  size="sm"
+                  className="bg-[#0071E3] hover:bg-[#0071E3]/90 text-white rounded-xl"
+                >
+                  Voir les matchs
+                </Button>
               </div>
-              <Button
-                size="sm"
-                className="bg-[#0071E3] hover:bg-[#0071E3]/90 text-white rounded-xl"
-              >
-                View Matches
-              </Button>
+
+              <div className="flex items-center gap-3 mt-4 pt-4 border-t border-[#E5E5E5]">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-[#0071E3] hover:bg-[#F5F5F7] rounded-full flex items-center gap-1"
+                >
+                  <Send className="h-3.5 w-3.5" />
+                  Envoyer CV auto
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-[#0071E3] hover:bg-[#F5F5F7] rounded-full"
+                >
+                  Favoris
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-[#0071E3] hover:bg-[#F5F5F7] rounded-full"
+                >
+                  Bons matchs
+                </Button>
+              </div>
             </div>
 
             <Card className="border-none rounded-2xl shadow-sm overflow-hidden bg-white">
               <CardHeader className="pb-2 bg-gradient-to-r from-[#0071E3] to-[#40AAFF] text-white">
                 <CardTitle className="text-lg font-medium">
-                  Recent Applications
+                  Candidatures récentes
                 </CardTitle>
                 <CardDescription className="text-white/80">
-                  Track your recent job applications
+                  Suivez vos candidatures récentes
                 </CardDescription>
               </CardHeader>
               <CardContent className="pt-6">
                 <Tabs defaultValue="all">
-                  <TabsList className="mb-6 bg-[#F5F5F7] p-1 rounded-xl">
+                  <TabsList className="mb-6 bg-[#F5F5F7] p-1 rounded-xl border border-[#E5E5E5]">
                     <TabsTrigger
                       value="all"
                       className="rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-[#0071E3]"
                     >
-                      All
+                      Toutes
                     </TabsTrigger>
                     <TabsTrigger
                       value="successful"
                       className="rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-[#0071E3]"
                     >
-                      Successful
+                      Acceptées
                     </TabsTrigger>
                     <TabsTrigger
                       value="pending"
                       className="rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-[#0071E3]"
                     >
-                      Pending
+                      En attente
                     </TabsTrigger>
                     <TabsTrigger
                       value="failed"
                       className="rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-[#0071E3]"
                     >
-                      Failed
+                      Refusées
                     </TabsTrigger>
                   </TabsList>
 
                   <TabsContent value="all">
-                    <ApplicationsList />
+                    <ApplicationsList
+                      massApplicationStatus={{
+                        active: true,
+                        totalToSend: 25,
+                        sent: 12,
+                        status: "sending",
+                        lastSentTime: new Date().toISOString(),
+                      }}
+                    />
                   </TabsContent>
 
                   <TabsContent value="successful">
-                    <ApplicationsList filter="successful" />
+                    <ApplicationsList
+                      filter="successful"
+                      massApplicationStatus={{
+                        active: true,
+                        totalToSend: 25,
+                        sent: 25,
+                        status: "completed",
+                        lastSentTime: new Date().toISOString(),
+                      }}
+                    />
                   </TabsContent>
 
                   <TabsContent value="pending">
-                    <ApplicationsList filter="pending" />
+                    <ApplicationsList
+                      filter="pending"
+                      massApplicationStatus={{
+                        active: true,
+                        totalToSend: 25,
+                        sent: 0,
+                        status: "idle",
+                      }}
+                    />
                   </TabsContent>
 
                   <TabsContent value="failed">
-                    <ApplicationsList filter="failed" />
+                    <ApplicationsList
+                      filter="failed"
+                      massApplicationStatus={{
+                        active: true,
+                        totalToSend: 25,
+                        sent: 10,
+                        status: "error",
+                        errorMessage:
+                          "Erreur de connexion à France Travail. Veuillez vérifier vos identifiants.",
+                      }}
+                    />
                   </TabsContent>
                 </Tabs>
               </CardContent>
@@ -359,10 +432,10 @@ const Dashboard = ({
             <Card className="border-none rounded-2xl shadow-sm overflow-hidden bg-white">
               <CardHeader className="pb-2 bg-gradient-to-r from-[#0071E3] to-[#40AAFF] text-white">
                 <CardTitle className="text-lg font-medium">
-                  Application Statistics
+                  Statistiques des candidatures
                 </CardTitle>
                 <CardDescription className="text-white/80">
-                  Your job application activity
+                  Votre activité de candidature
                 </CardDescription>
               </CardHeader>
               <CardContent className="pt-6">
@@ -370,7 +443,7 @@ const Dashboard = ({
                   <div>
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-sm font-medium text-[#1D1D1F]">
-                        Success Rate
+                        Taux de réussite
                       </span>
                       <span className="text-sm font-medium text-[#1D1D1F]">
                         {successRate}%
@@ -385,38 +458,38 @@ const Dashboard = ({
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <div className="flex flex-col items-center p-4 bg-[#F5F5F7] rounded-xl">
                       <div className="flex items-center gap-2 mb-1">
-                        <div className="w-8 h-8 rounded-full bg-[#E8F5E9] flex items-center justify-center">
-                          <CheckCircle className="h-4 w-4 text-[#34C759]" />
+                        <div className="w-8 h-8 rounded-full bg-[#E3F2FD] flex items-center justify-center">
+                          <CheckCircle className="h-4 w-4 text-[#0071E3]" />
                         </div>
                       </div>
                       <span className="text-2xl font-bold text-[#1D1D1F]">
                         {statistics.successfulApplications}
                       </span>
-                      <span className="text-xs text-[#86868B]">Successful</span>
+                      <span className="text-xs text-[#86868B]">Acceptées</span>
                     </div>
 
                     <div className="flex flex-col items-center p-4 bg-[#F5F5F7] rounded-xl">
                       <div className="flex items-center gap-2 mb-1">
-                        <div className="w-8 h-8 rounded-full bg-[#FFF8E1] flex items-center justify-center">
-                          <Clock className="h-4 w-4 text-[#FF9500]" />
+                        <div className="w-8 h-8 rounded-full bg-[#E3F2FD] flex items-center justify-center">
+                          <Clock className="h-4 w-4 text-[#0071E3]" />
                         </div>
                       </div>
                       <span className="text-2xl font-bold text-[#1D1D1F]">
                         {statistics.pendingApplications}
                       </span>
-                      <span className="text-xs text-[#86868B]">Pending</span>
+                      <span className="text-xs text-[#86868B]">En attente</span>
                     </div>
 
                     <div className="flex flex-col items-center p-4 bg-[#F5F5F7] rounded-xl">
                       <div className="flex items-center gap-2 mb-1">
-                        <div className="w-8 h-8 rounded-full bg-[#FEEBEE] flex items-center justify-center">
-                          <XCircle className="h-4 w-4 text-[#FF3B30]" />
+                        <div className="w-8 h-8 rounded-full bg-[#E3F2FD] flex items-center justify-center">
+                          <XCircle className="h-4 w-4 text-[#0071E3]" />
                         </div>
                       </div>
                       <span className="text-2xl font-bold text-[#1D1D1F]">
                         {statistics.failedApplications}
                       </span>
-                      <span className="text-xs text-[#86868B]">Failed</span>
+                      <span className="text-xs text-[#86868B]">Refusées</span>
                     </div>
 
                     <div className="flex flex-col items-center p-4 bg-[#F5F5F7] rounded-xl">

@@ -16,6 +16,10 @@ import {
   Filter,
   X,
   Search,
+  Send,
+  Loader2,
+  CheckCircle2,
+  AlertCircle,
 } from "lucide-react";
 import {
   Dialog,
@@ -41,6 +45,15 @@ interface ApplicationsListProps {
   applications?: Application[];
   onViewDetails?: (applicationId: string) => void;
   onOpenExternal?: (applicationId: string) => void;
+  filter?: string;
+  massApplicationStatus?: {
+    active: boolean;
+    totalToSend: number;
+    sent: number;
+    status: "idle" | "sending" | "completed" | "error";
+    lastSentTime?: string;
+    errorMessage?: string;
+  };
 }
 
 const ApplicationsList = ({
@@ -98,6 +111,14 @@ const ApplicationsList = ({
   ],
   onViewDetails = () => {},
   onOpenExternal = () => {},
+  filter,
+  massApplicationStatus = {
+    active: true,
+    totalToSend: 25,
+    sent: 12,
+    status: "sending",
+    lastSentTime: new Date().toISOString(),
+  },
 }: ApplicationsListProps) => {
   const [filteredApplications, setFilteredApplications] = useState<
     Application[]
@@ -307,7 +328,101 @@ const ApplicationsList = ({
   };
 
   return (
-    <div className="w-full bg-[#f5f5f7] p-6 rounded-2xl">
+    <div className="w-full bg-white p-6 rounded-2xl shadow-sm">
+      {massApplicationStatus.active && (
+        <div
+          className={`mb-6 p-4 rounded-xl ${massApplicationStatus.status === "error" ? "bg-red-50" : "bg-blue-50"}`}
+        >
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              {massApplicationStatus.status === "sending" && (
+                <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
+                  <Loader2 className="h-5 w-5 text-blue-600 animate-spin" />
+                </div>
+              )}
+              {massApplicationStatus.status === "completed" && (
+                <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center">
+                  <CheckCircle2 className="h-5 w-5 text-green-600" />
+                </div>
+              )}
+              {massApplicationStatus.status === "error" && (
+                <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center">
+                  <AlertCircle className="h-5 w-5 text-red-600" />
+                </div>
+              )}
+              {massApplicationStatus.status === "idle" && (
+                <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
+                  <Send className="h-5 w-5 text-gray-600" />
+                </div>
+              )}
+              <div>
+                <h3 className="font-medium text-[#1d1d1f]">
+                  {massApplicationStatus.status === "sending" &&
+                    "Envoi automatique de CV en cours"}
+                  {massApplicationStatus.status === "completed" &&
+                    "Envoi automatique de CV terminé"}
+                  {massApplicationStatus.status === "error" &&
+                    "Erreur lors de l'envoi automatique"}
+                  {massApplicationStatus.status === "idle" &&
+                    "Envoi automatique de CV programmé"}
+                </h3>
+                <p className="text-sm text-gray-600">
+                  {massApplicationStatus.sent} sur{" "}
+                  {massApplicationStatus.totalToSend} candidatures envoyées
+                  {massApplicationStatus.lastSentTime &&
+                    massApplicationStatus.status === "sending" && (
+                      <>
+                        {" "}
+                        • Dernière candidature envoyée il y a{" "}
+                        {Math.floor(Math.random() * 5) + 1} minutes
+                      </>
+                    )}
+                </p>
+              </div>
+            </div>
+            <div>
+              {massApplicationStatus.status === "sending" && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="rounded-full border-red-200 bg-white text-red-600 hover:bg-red-50"
+                >
+                  <X className="h-4 w-4 mr-1" />
+                  Arrêter
+                </Button>
+              )}
+              {massApplicationStatus.status === "idle" && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="rounded-full border-blue-200 bg-white text-blue-600 hover:bg-blue-50"
+                >
+                  <Send className="h-4 w-4 mr-1" />
+                  Démarrer
+                </Button>
+              )}
+            </div>
+          </div>
+          {massApplicationStatus.status === "sending" && (
+            <div className="mt-3">
+              <div className="h-1.5 w-full bg-blue-100 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-blue-500 rounded-full transition-all duration-500"
+                  style={{
+                    width: `${(massApplicationStatus.sent / massApplicationStatus.totalToSend) * 100}%`,
+                  }}
+                ></div>
+              </div>
+            </div>
+          )}
+          {massApplicationStatus.status === "error" &&
+            massApplicationStatus.errorMessage && (
+              <div className="mt-2 text-sm text-red-600">
+                {massApplicationStatus.errorMessage}
+              </div>
+            )}
+        </div>
+      )}
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-semibold text-[#1d1d1f]">
           Candidatures récentes

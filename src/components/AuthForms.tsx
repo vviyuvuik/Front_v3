@@ -80,19 +80,21 @@ const AuthForms = ({
   });
 
   const handleLoginSubmit = (data: LoginFormValues) => {
-    onLogin(data);
+    // Simuler une connexion réussie immédiatement
     toast({
-      title: "Connexion en cours",
-      description: `Tentative de connexion avec ${data.email}`,
+      title: "Connexion réussie",
+      description: `Bienvenue ${data.email}`,
     });
+    onLogin(data);
   };
 
   const handleRegisterSubmit = (data: RegisterFormValues) => {
-    onRegister(data);
+    // Simuler une inscription réussie immédiatement
     toast({
-      title: "Inscription en cours",
-      description: `Création de compte pour ${data.email}`,
+      title: "Inscription réussie",
+      description: `Compte créé pour ${data.email}`,
     });
+    onRegister(data);
   };
 
   return (
@@ -125,7 +127,8 @@ const AuthForms = ({
                       id="email"
                       type="email"
                       placeholder="votre@email.com"
-                      className="pl-10"
+                      className="pl-10 rounded-xl"
+                      defaultValue="test@example.com"
                       {...loginForm.register("email")}
                     />
                   </div>
@@ -144,7 +147,8 @@ const AuthForms = ({
                       id="password"
                       type={showPassword ? "text" : "password"}
                       placeholder="••••••••"
-                      className="pl-10"
+                      className="pl-10 rounded-xl"
+                      defaultValue="password123"
                       {...loginForm.register("password")}
                     />
                     <Button
@@ -174,7 +178,11 @@ const AuthForms = ({
                 </div>
               </CardContent>
               <CardFooter>
-                <Button type="submit" className="w-full" disabled={isLoading}>
+                <Button
+                  type="submit"
+                  className="w-full rounded-full bg-[#0071E3] hover:bg-[#0071E3]/90 text-white py-6"
+                  disabled={isLoading}
+                >
                   {isLoading ? (
                     <motion.div
                       className="h-5 w-5 rounded-full border-2 border-t-transparent"
@@ -314,7 +322,11 @@ const AuthForms = ({
                 </div>
               </CardContent>
               <CardFooter>
-                <Button type="submit" className="w-full" disabled={isLoading}>
+                <Button
+                  type="submit"
+                  className="w-full rounded-full bg-[#0071E3] hover:bg-[#0071E3]/90 text-white py-6"
+                  disabled={isLoading}
+                >
                   {isLoading ? (
                     <motion.div
                       className="h-5 w-5 rounded-full border-2 border-t-transparent"
