@@ -101,9 +101,7 @@ const AuthForms = ({
     <div className="w-full max-w-md mx-auto bg-background">
       <Card className="shadow-lg border-border">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl font-bold">
-            France Travail Automation
-          </CardTitle>
+          <CardTitle className="text-2xl font-bold">All the senf </CardTitle>
           <CardDescription>
             {activeTab === "login"
               ? "Connectez-vous à votre compte"

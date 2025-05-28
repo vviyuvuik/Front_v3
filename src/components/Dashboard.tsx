@@ -113,7 +113,7 @@ const Dashboard = ({
               </div>
             </div>
             <div className="mt-6">
-              <p className="text-xl">Trouvez l'emploi qui vous correspond</p>
+              <p className="text-xl">Votre emploi, notre IA</p>
               <p className="text-white/80 text-sm mt-1">
                 Des milliers d'offres d'emploi dans tous les secteurs, partout
                 en France.
